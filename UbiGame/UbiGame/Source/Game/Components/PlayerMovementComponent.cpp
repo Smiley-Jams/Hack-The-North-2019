@@ -38,36 +38,28 @@ void PlayerMovementComponent::Update()
 	//player Velocity is applied when we have some input (for the time being let's make it 10pixels a second)
 	float playerVel = 100.f;
 
+	GameEngine::AnimationComponent* animComponent = GetEntity()->GetComponent<GameEngine::AnimationComponent>();
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		wantedVel.x -= playerVel * dt;
+		animComponent->PlayAnim(GameEngine::EAnimationId::PlayerLeft);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		wantedVel.x += playerVel * dt;
+		animComponent->PlayAnim(GameEngine::EAnimationId::PlayerRight);
 	}
-
-	int maxFaces = 3;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		m_wasFaceSwapButtonPressed = true;
+		wantedVel.y -= playerVel * dt;
+		animComponent->PlayAnim(GameEngine::EAnimationId::PlayerUp);
 	}
-	else
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		//Button is not pressed now, but it was pressed last frame, which means it just has been released
-		if (m_wasFaceSwapButtonPressed)
-		{
-			GameEngine::AnimationComponent* animComponent = GetEntity()->GetComponent<GameEngine::AnimationComponent>();
-			if (animComponent)
-			{
-				//animComponent->SetIsLooping(false);
-				animComponent->PlayAnim(GameEngine::EAnimationId::PlayerWink);
-			}
-		}
-
-		m_wasFaceSwapButtonPressed = false;
+		wantedVel.y += playerVel * dt;
+		animComponent->PlayAnim(GameEngine::EAnimationId::PlayerDown);
 	}
-
 	
 	//Update the entity position with new velocity
 	GetEntity()->SetPos(GetEntity()->GetPos() + wantedVel);	

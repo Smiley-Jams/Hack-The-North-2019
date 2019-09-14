@@ -11,7 +11,10 @@ namespace GameEngine
 	{
 		enum type
 		{
-			PlayerWink,
+			PlayerRight,
+			PlayerLeft,
+			PlayerUp,
+			PlayerDown,
 			None,
 		};
 	}
