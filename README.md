@@ -1,2 +1,3 @@
-# Hack-The-North-2019
-Isn't Waterloo in *southern* Ontario?
+# ETERNITY
+
+Read the [MASTER PLAN HERE](MASTERPLAN.md)
