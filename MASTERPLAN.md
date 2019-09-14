@@ -26,6 +26,10 @@ The *auction house* facilitates the buying and selling of resources and items. T
 
 Every set interval, the players will receive resources based on the tile that they are occupying, this update is called a tick. Since everything is decentralized, there is no server to send resources out to the players. As such, the tick will be calculated by the clients themselves based on how much time has passed, then add that data to the blockchain.
 
+### Movement
+
+Since player movement doesn't affect gameplay at all, it will all be handled on the client side. The only data that matters is the position of the player when a 'tick' occurs, which can simply be stored at the end of a players game session and then uploaded to the blockchain.
+
 ### Resources
 
 For now, there will be three basic resources:
