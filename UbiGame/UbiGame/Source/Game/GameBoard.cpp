@@ -9,6 +9,7 @@
 
 #include "Game\Components\PlayerMovementComponent.h"
 #include "Map.h"
+#include "UIView.h"
 
 using namespace Game;
 
@@ -26,12 +27,14 @@ GameBoard::GameBoard()
 	headers.push_back("X-API-Key: B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab");
 	std::string result = Network::GetRequest(url, headers);
 	std::cout << result << std::endl;
+
+	m_view = new UIView();
 }
 
 
 GameBoard::~GameBoard()
 {
-
+	delete m_view;
 }
 
 

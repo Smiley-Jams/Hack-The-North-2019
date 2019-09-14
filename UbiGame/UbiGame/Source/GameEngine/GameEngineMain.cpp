@@ -101,7 +101,7 @@ void GameEngineMain::Update()
 		m_gameBoard->Update();
 
 	UpdateEntities();
-	Map::getInstance().render();
+	// Map::getInstance().render();
 	RenderEntities();
 
 	AddPendingEntities();
