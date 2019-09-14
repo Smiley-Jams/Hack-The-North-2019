@@ -5,7 +5,6 @@
 #include <cassert>
 #include <cstdio>
 
-
 namespace {
 	const unsigned int g_rows = 16;
 	const unsigned int g_cols = 16;
@@ -66,6 +65,8 @@ void Map::render()
 	GameEngine::SpriteRenderComponent& renderer = *static_cast<GameEngine::SpriteRenderComponent*>
 		(entity.AddComponent<GameEngine::SpriteRenderComponent>());
 	entity.SetSize(sf::Vector2f{ (float)allShared.m_width, (float)allShared.m_height });
+	sf::Vector2f entitySize = entity.GetSize();
+	printf("%f %f\n", entitySize.x, entitySize.y);
 	for (unsigned int i = 0; i < g_rows; i++) {
 		for (unsigned int j = 0; j < g_cols; j++) {
 			//Get tile position and texture information, render accordingly.
@@ -81,8 +82,8 @@ Map::Map()
 {
 	//Define different globally shared tile attributes here.
 	TileAllShared& allShared = Tile::s_allShared;
-	allShared.m_width = GameEngine::GameEngineMain::WINDOW_WIDTH;
-	allShared.m_height = GameEngine::GameEngineMain::WINDOW_HEIGHT;
+	allShared.m_width = GameEngine::GameEngineMain::WINDOW_WIDTH / g_cols;
+	allShared.m_height = GameEngine::GameEngineMain::WINDOW_HEIGHT / g_rows;
 
 	//Define and wire different type-shared tile attributes here.
 	TileTypeShared grass = { GameEngine::eTexture::Grass, sf::Color::Green };
