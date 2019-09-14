@@ -8,6 +8,7 @@
 #include "Util/TextureManager.h"
 #include "Util/AnimationManager.h"
 #include "Util/CameraManager.h"
+#include "Game/Map.h"
 
 using namespace GameEngine;
 
@@ -100,6 +101,7 @@ void GameEngineMain::Update()
 		m_gameBoard->Update();
 
 	UpdateEntities();
+	Map::getInstance().render();
 	RenderEntities();
 
 	AddPendingEntities();

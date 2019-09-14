@@ -4,23 +4,25 @@
 #include "GameEngine/EntitySystem/Components/SpriteRenderComponent.h"
 #include <cassert>
 
+
+
 namespace {
 	const unsigned int g_rows = 16;
 	const unsigned int g_cols = 16;
 	/*TileType*/unsigned int g_tiles[g_rows][g_cols] = {
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
@@ -33,21 +35,44 @@ Map& Map::getInstance()
 	return map;
 }
 
-TileType Map::getTileType(unsigned int x, unsigned int y)
+eTileType Map::getTileType(unsigned int x, unsigned int y)
 {
 	assert(x > 0 && y > 0 && x < g_cols && y < g_rows);
-	return static_cast<TileType>(g_tiles[y][x]);
+	return static_cast<eTileType>(g_tiles[y][x]);
+}
+
+GameEngine::eTexture::type Map::getTileTexture(unsigned int x, unsigned int y)
+{
+	return getTypeShared(x, y).m_texture;
+}
+
+sf::Color Map::getTileColor(unsigned int x, unsigned int y)
+{
+	return getTypeShared(x, y).m_color;
+}
+
+sf::Vector2u Map::getTilePosition(unsigned int x, unsigned int y)
+{
+	//Do this just to ensure we don't go out of bounds.
+	getTileType(x, y);
+	return sf::Vector2u{ Tile::s_allShared.m_width * x, Tile::s_allShared.m_height * y };
 }
 
 //Call this at the start of MainGame::Update().
 void Map::render()
 {
+	const TileAllShared& allShared = Tile::s_allShared;
 	GameEngine::Entity entity;
-	auto renderer = entity.AddComponent<GameEngine::SpriteRenderComponent>();
-	sf::Vector2f tilePosition(0.0f, 0.0f);
+	GameEngine::SpriteRenderComponent& renderer = *static_cast<GameEngine::SpriteRenderComponent*>
+		(entity.AddComponent<GameEngine::SpriteRenderComponent>());
+	entity.SetSize(sf::Vector2f{ (float)allShared.m_width, (float)allShared.m_height });
 	for (unsigned int i = 0; i < g_rows; i++) {
 		for (unsigned int j = 0; j < g_cols; j++) {
 			//Get tile position and texture information, render accordingly.
+			entity.SetPos((sf::Vector2f)getTilePosition(j, i));
+			//renderer.SetTexture(getTileTexture(j, i));
+			renderer.SetFillColor(getTileColor(j, i));
+			renderer.Render(const_cast<sf::RenderTarget*>(GameEngine::GameEngineMain::GetInstance()->getRenderTarget()));
 		}
 	}
 }
@@ -71,4 +96,9 @@ Map::Map()
 
 Map::~Map()
 {
+}
+
+inline TileTypeShared& Map::getTypeShared(unsigned int x, unsigned int y)
+{
+	return Tile::s_typeShared[getTileType(x, y)];
 }

@@ -23,6 +23,7 @@ namespace GameEngine
 		sf::RenderWindow* GetRenderWindow() const { return m_renderWindow; }
 		void Update();		
 		void SetRenderTarget(sf::RenderTarget* target) { m_renderTarget = target; }
+		const sf::RenderTarget* const getRenderTarget() { return m_renderTarget; }
 
 		void AddEntity(Entity* entity);
 		void RemoveEntity(Entity* entity);
