@@ -1,1 +1,4 @@
 *.dll
+
+# THE HACKY CURL to PROGRAM FILE
+temp.txt
