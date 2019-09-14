@@ -189,6 +189,9 @@ void GameEngineMain::RenderEntities()
 	//With that test setting on, our bird implementation changes a bunch of rules, just so we can test it easilly
 	m_renderTarget->setView(CameraManager::GetInstance()->GetCameraView());
 
+	//Render the map explicitly cause fuck the entity queuing system.
+	Map::getInstance().render();
+
 	//Render que
 	std::vector<RenderComponent*> renderers;
 	//Every entity that has RenderComponent, or a component that extends RenderComponent - should end up in a render que
