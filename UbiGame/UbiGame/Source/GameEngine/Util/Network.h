@@ -33,4 +33,28 @@ namespace Network
 		strStream << file.rdbuf();
 		return json::parse(strStream.str());
 	}
+
+	// NOTE: Don't need to include content-type for post request, already handled
+	json PostRequest(const std::string& url, const std::vector<std::string>& headers, const json& data)
+	{
+		std::string syscall("curl -X POST \"");
+		syscall += url;
+		syscall += "\" -H \"Content-Type: application/json\" ";
+		for (const auto& header : headers)
+		{
+			syscall += " -H \"";
+			syscall += header;
+			syscall += "\"";
+		}
+		syscall += " -d '";
+		syscall += data.dump();
+		syscall += "' -o temp.txt";
+		system(syscall.c_str());
+
+		// Then get this info from a file
+		std::ifstream file("temp.txt");
+		std::stringstream strStream;
+		strStream << file.rdbuf();
+		return json::parse(strStream.str());
+	}
 }

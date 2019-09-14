@@ -66,7 +66,6 @@ void Map::render()
 		(entity.AddComponent<GameEngine::SpriteRenderComponent>());
 	entity.SetSize(sf::Vector2f{ (float)allShared.m_width, (float)allShared.m_height });
 	sf::Vector2f entitySize = entity.GetSize();
-	printf("%f %f\n", entitySize.x, entitySize.y);
 	for (unsigned int i = 0; i < g_rows; i++) {
 		for (unsigned int j = 0; j < g_cols; j++) {
 			//Get tile position and texture information, render accordingly.

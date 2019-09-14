@@ -20,7 +20,6 @@ GameBoard::GameBoard()
 	CreateObstacle();
 
 	/*
-	// system("curl \"https://testnet-algorand.api.purestake.io/ps1/v1/account/3ZVAYYEOZRPXD3XDNS3YRHP2CQ4RBPPUVL4HFIAOFVQXZ2TRKYBKLDMK6I\" -H \"Host: testnet-algorand.api.purestake.io\" -H \"X-API-Key: B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab\" -o test.txt");
 	std::string url = "https://testnet-algorand.api.purestake.io/ps1/v1/account/3ZVAYYEOZRPXD3XDNS3YRHP2CQ4RBPPUVL4HFIAOFVQXZ2TRKYBKLDMK6I";
 	std::vector<std::string> headers;
 	headers.emplace_back("Host: testnet-algorand.api.purestake.io");
@@ -28,6 +27,16 @@ GameBoard::GameBoard()
 	json result = Network::GetRequest(url, headers);
 	std::cout << result << std::endl;
 	*/
+
+	std::string url = "https://postman-echo.com/post";
+	std::vector<std::string> headers;
+	headers.emplace_back("Host: testnet-algorand.api.purestake.io");
+	headers.push_back("X-API-Key: B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab");
+	json data;
+	data["test"] = 3;
+	data["test2"] = "stringggg";
+	json result = Network::PostRequest(url, headers, data);
+	std::cout << result << std::endl;
 }
 
 
