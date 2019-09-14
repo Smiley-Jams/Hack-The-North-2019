@@ -13,6 +13,7 @@ namespace GameEngine
 			None = -1,
 			Player,
 			Obstacle,
+			Grass,
 			Count,
 		};
 	}	

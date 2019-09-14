@@ -1,4 +1,7 @@
 #include "Map.h"
+#include "GameEngine/GameEngineMain.h"
+#include "GameEngine/EntitySystem/Entity.h"
+#include "GameEngine/EntitySystem/Components/SpriteRenderComponent.h"
 #include <cassert>
 
 namespace {
@@ -22,7 +25,12 @@ namespace {
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	};
-	TileShared g_tileShared[TileType::NUM_TYPES];
+}
+
+Map& Map::getInstance()
+{
+	static Map map;
+	return map;
 }
 
 TileType Map::getTileType(unsigned int x, unsigned int y)
@@ -34,9 +42,28 @@ TileType Map::getTileType(unsigned int x, unsigned int y)
 //Call this at the start of MainGame::Update().
 void Map::render()
 {
+	GameEngine::Entity entity;
+	auto renderer = entity.AddComponent<GameEngine::SpriteRenderComponent>();
+	sf::Vector2f tilePosition(0.0f, 0.0f);
 	for (unsigned int i = 0; i < g_rows; i++) {
 		for (unsigned int j = 0; j < g_cols; j++) {
 			//Get tile position and texture information, render accordingly.
 		}
 	}
+}
+
+Map::Map()
+{
+	//Define tile globally shared attributes here.
+	Tile::AllShared& allShared = Tile::s_allShared;
+	allShared.m_width = GameEngine::GameEngineMain::WINDOW_WIDTH;
+	allShared.m_height = GameEngine::GameEngineMain::WINDOW_HEIGHT;
+
+	//Define and wire different type-shared tile attributes here.
+	Tile::TypeShared grass = { GameEngine::eTexture::Grass, sf::Color::Green };
+	Tile::s_typeShared[GRASS] = grass;
+}
+
+Map::~Map()
+{
 }
