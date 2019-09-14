@@ -19,3 +19,9 @@ The items will be the goal of the game, these items could be cosmetic so it coul
 ## Auction House
 
 The *auction house* facilitates the buying and selling of resources and items. This is the part of the game that encourages collaboration between players; The specialization of different professions will require players to work with each other to craft better items.
+
+## TECH
+
+### The tick mechanic
+
+Every set interval, the players will receive resources based on the tile that they are occupying, this update is called a tick. Since everything is decentralized, there is no server to send resources out to the players. As such, the tick will be calculated by the clients themselves based on how much time has passed, then add that data to the blockchain.
