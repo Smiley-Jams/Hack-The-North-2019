@@ -21,7 +21,7 @@ namespace GameEngine
 	{
 		switch (texture)
 		{
-		case eTexture::Player: return "Player.png";
+		case eTexture::Player: return "player1.png";
 		case eTexture::Obstacle: return "Obstacle.png";
 		}
 
@@ -53,7 +53,7 @@ namespace TextureHelper
 	{
 		switch (texture)
 		{
-			case  GameEngine::eTexture::Player:  return sf::Vector2f(50.f, 50.f);
+			case  GameEngine::eTexture::Player:  return sf::Vector2f(32.f, 32.f);
 		}
 
 		return sf::Vector2f(-1.f, -1.f);
