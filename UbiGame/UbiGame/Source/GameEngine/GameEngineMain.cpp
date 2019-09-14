@@ -11,8 +11,8 @@
 
 using namespace GameEngine;
 
-float GameEngineMain::WINDOW_HEIGHT = 500;
-float GameEngineMain::WINDOW_WIDTH = 500;
+const unsigned int GameEngineMain::WINDOW_HEIGHT = 800;
+const unsigned int GameEngineMain::WINDOW_WIDTH = 800;
 //Nullptr init for singleton class
 GameEngineMain* GameEngineMain::sm_instance = nullptr;
 sf::Clock		GameEngineMain::sm_deltaTimeClock;
@@ -29,7 +29,7 @@ GameEngineMain::GameEngineMain()
 	//Create predefined animation definition vector
 	AnimationManager::GetInstance()->InitStaticGameAnimations();
 
-	CameraManager::GetInstance()->GetCameraView().setCenter(sf::Vector2f(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f));
+	CameraManager::GetInstance()->GetCameraView().setCenter(sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
 	CameraManager::GetInstance()->GetCameraView().setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 }
 
@@ -51,7 +51,7 @@ void GameEngineMain::OnInitialised()
 
 void GameEngineMain::CreateAndSetUpWindow()
 {
-	m_renderWindow = new sf::RenderWindow(sf::VideoMode((unsigned int)WINDOW_WIDTH, (unsigned int)WINDOW_HEIGHT), "Hack The North");
+	m_renderWindow = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Eternity");
 	m_renderTarget = m_renderWindow;
 }
 
