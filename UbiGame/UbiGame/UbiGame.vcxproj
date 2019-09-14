@@ -148,7 +148,6 @@
     <ClCompile Include="Source\GameEngine\EntitySystem\Components\CollidableComponent.cpp" />
     <ClCompile Include="Source\GameEngine\Util\CollisionManager.cpp" />
     <ClCompile Include="Source\GameEngine\Util\SoundManager.cpp" />
-    <ClCompile Include="Source\Game\Map.cpp" />
     <ClCompile Include="Source\Game\Components\PlayerMovementComponent.cpp" />
     <ClCompile Include="Source\Game\GameBoard.cpp" />
     <ClCompile Include="Source\GameEngine\EntitySystem\Components\RenderComponent.cpp" />
@@ -170,6 +169,7 @@
     <ClInclude Include="Source\GameEngine\EntitySystem\Components\CollidablePhysicsComponent.h" />
     <ClInclude Include="Source\GameEngine\EntitySystem\Components\CollidableComponent.h" />
     <ClInclude Include="Source\GameEngine\Util\CollisionManager.h" />
+    <ClInclude Include="Source\GameEngine\Util\Network.h" />
     <ClInclude Include="Source\GameEngine\Util\SoundManager.h" />
     <ClInclude Include="Source\Game\Map.h" />
     <ClInclude Include="Source\Game\Components\PlayerMovementComponent.h" />
@@ -180,7 +180,6 @@
     <ClInclude Include="Source\GameEngine\GameEngineMain.h" />
     <ClInclude Include="Source\GameEngine\Util\TextureManager.h" />
     <ClInclude Include="Source\GameEngine\EntitySystem\Components\SpriteRenderComponent.h" />
-    <ClInclude Include="Source\Game\Map.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
