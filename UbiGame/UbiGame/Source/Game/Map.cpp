@@ -3,7 +3,7 @@
 #include "GameEngine/EntitySystem/Entity.h"
 #include "GameEngine/EntitySystem/Components/SpriteRenderComponent.h"
 #include <cassert>
-
+#include <cstdio>
 
 
 namespace {
@@ -37,7 +37,7 @@ Map& Map::getInstance()
 
 eTileType Map::getTileType(unsigned int x, unsigned int y)
 {
-	assert(x > 0 && y > 0 && x < g_cols && y < g_rows);
+	assert(x >= 0 && y >= 0 && x < g_cols && y < g_rows);
 	return static_cast<eTileType>(g_tiles[y][x]);
 }
 

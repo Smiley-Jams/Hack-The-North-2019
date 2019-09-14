@@ -101,7 +101,6 @@ void GameEngineMain::Update()
 		m_gameBoard->Update();
 
 	UpdateEntities();
-	Map::getInstance().render();
 	RenderEntities();
 
 	AddPendingEntities();
@@ -188,6 +187,9 @@ void GameEngineMain::RenderEntities()
 	//If that setting is on, PlayerCamera component will update the camera position to player position - making our camera center on player entity
 	//With that test setting on, our bird implementation changes a bunch of rules, just so we can test it easilly
 	m_renderTarget->setView(CameraManager::GetInstance()->GetCameraView());
+
+	//Render the map explicitly cause fuck the entity queuing system.
+	Map::getInstance().render();
 
 	//Render que
 	std::vector<RenderComponent*> renderers;
