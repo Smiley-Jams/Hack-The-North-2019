@@ -20,6 +20,8 @@ The items will be the goal of the game, these items could be cosmetic so it coul
 
 The *auction house* facilitates the buying and selling of resources and items. This is the part of the game that encourages collaboration between players; The specialization of different professions will require players to work with each other to craft better items.
 
+On the auction house, players will be able to list items for sale as well as list postings to buy items. Players may also browse current listings and immediately buy or sell based on the listing details. More implementation details to come soon...
+
 ## TECH / MECHANICS
 
 ### The tick mechanic
