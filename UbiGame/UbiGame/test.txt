@@ -1,1 +1,0 @@
-{"round":1836924,"address":"3ZVAYYEOZRPXD3XDNS3YRHP2CQ4RBPPUVL4HFIAOFVQXZ2TRKYBKLDMK6I","amount":98959000,"pendingrewards":0,"amountwithoutpendingrewards":98959000,"rewards":0,"status":"Offline"}

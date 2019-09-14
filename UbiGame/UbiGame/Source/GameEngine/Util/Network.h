@@ -5,6 +5,8 @@
 #include <fstream>
 #include <sstream>
 
+#include <msgpack.hpp>
+
 namespace Network 
 {
 	std::string GetRequest(const std::string& url, const std::vector<std::string>& headers)
