@@ -9,6 +9,7 @@
 #include "Util/AnimationManager.h"
 #include "Util/CameraManager.h"
 #include "Game/Map.h"
+#include "UI/text.h"
 #include "UI/UIView.h"
 
 using namespace GameEngine;
@@ -33,6 +34,8 @@ GameEngineMain::GameEngineMain()
 
 	CameraManager::GetInstance()->GetCameraView().setCenter(sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
 	CameraManager::GetInstance()->GetCameraView().setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
+
+	Text::init();
 }
 
 
@@ -112,7 +115,7 @@ void GameEngineMain::Update()
 	// RENDER FUNCTIONS
 	// Map::getInstance().render();
 	RenderEntities();
-	m_view->render(m_renderTarget);
+	if (m_view) m_view->render(m_renderTarget);
 
 	if (m_renderWindow && m_renderWindow->isOpen())
 	{

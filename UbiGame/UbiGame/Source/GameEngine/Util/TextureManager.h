@@ -17,6 +17,9 @@ namespace GameEngine
 			Grass,
 			Water,
 			Dirt,
+			Icon_wood,
+			Icon_ore,
+			Icon_wool,
 			Count
 		};
 	}	
@@ -28,6 +31,9 @@ namespace GameEngine
 		case eTexture::Player: return "player1.png";
 		case eTexture::Cursor: return "icons/cursor.png";
 		case eTexture::Cursor_clicked: return "icons/cursor_click.png";
+		case eTexture::Icon_wood: return "icons/wood.png";
+		case eTexture::Icon_ore: return "icons/ore.png";
+		case eTexture::Icon_wool: return "icons/wool.png";
 		}
 
 		return "UnknownTexType";
