@@ -8,6 +8,8 @@
 #include "GameEngine\EntitySystem\Entity.h"
 #include "GameEngine\EntitySystem\Components\RenderComponent.h"
 
+class UIView;
+
 namespace GameEngine
 {
 	class GameEngineMain
@@ -58,6 +60,8 @@ namespace GameEngine
 
 		Game::GameBoard*    m_gameBoard;
 		float				m_lastDT;
+
+		UIView * m_view;
 
 		bool m_windowInitialised;
 	};

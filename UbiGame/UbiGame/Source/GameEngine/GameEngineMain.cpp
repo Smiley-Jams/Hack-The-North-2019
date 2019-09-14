@@ -9,6 +9,7 @@
 #include "Util/AnimationManager.h"
 #include "Util/CameraManager.h"
 #include "Game/Map.h"
+#include "UI/UIView.h"
 
 using namespace GameEngine;
 
@@ -38,6 +39,7 @@ GameEngineMain::GameEngineMain()
 GameEngineMain::~GameEngineMain()
 {
 	delete m_renderTarget;
+	delete m_view;
 }
 
 
@@ -47,6 +49,9 @@ void GameEngineMain::OnInitialised()
 	m_gameBoard = new Game::GameBoard();
 	sm_deltaTimeClock.restart();
 	sm_gameClock.restart();
+
+	m_view = new UIView();
+	m_view->init();
 }
 
 
@@ -103,9 +108,15 @@ void GameEngineMain::Update()
 	UpdateEntities();
 	// Map::getInstance().render();
 	RenderEntities();
+	m_view->render(m_renderTarget);
+
+	if (m_renderWindow && m_renderWindow->isOpen())
+	{
+		m_renderWindow->display();
+	}
 
 	AddPendingEntities();
-	
+
 	//We pool last delta and will pass it as GetTimeDelta - from game perspective it's more important that DT stays the same the whole frame, rather than be updated halfway through the frame
 	m_lastDT = sm_deltaTimeClock.getElapsedTime().asSeconds();
 	sm_deltaTimeClock.restart();
@@ -214,10 +225,5 @@ void GameEngineMain::RenderEntities()
 	{		
 		renderer->Render(m_renderTarget);
 	}
-
-	if (m_renderWindow && m_renderWindow->isOpen())
-	{
-		m_renderWindow->display();
-	}	
 }
 

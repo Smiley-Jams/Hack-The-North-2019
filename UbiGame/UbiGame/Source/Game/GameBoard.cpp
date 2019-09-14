@@ -9,7 +9,6 @@
 
 #include "Game\Components\PlayerMovementComponent.h"
 #include "Map.h"
-#include "UIView.h"
 
 using namespace Game;
 
@@ -20,6 +19,7 @@ GameBoard::GameBoard()
 	CreatePlayer();
 	CreateObstacle();
 
+	/*
 	// system("curl \"https://testnet-algorand.api.purestake.io/ps1/v1/account/3ZVAYYEOZRPXD3XDNS3YRHP2CQ4RBPPUVL4HFIAOFVQXZ2TRKYBKLDMK6I\" -H \"Host: testnet-algorand.api.purestake.io\" -H \"X-API-Key: B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab\" -o test.txt");
 	std::string url = "https://testnet-algorand.api.purestake.io/ps1/v1/account/3ZVAYYEOZRPXD3XDNS3YRHP2CQ4RBPPUVL4HFIAOFVQXZ2TRKYBKLDMK6I";
 	std::vector<std::string> headers;
@@ -27,14 +27,13 @@ GameBoard::GameBoard()
 	headers.push_back("X-API-Key: B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab");
 	std::string result = Network::GetRequest(url, headers);
 	std::cout << result << std::endl;
-
-	m_view = new UIView();
+	*/
 }
 
 
 GameBoard::~GameBoard()
 {
-	delete m_view;
+
 }
 
 

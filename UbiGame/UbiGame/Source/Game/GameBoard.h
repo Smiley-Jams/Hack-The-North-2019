@@ -3,8 +3,6 @@
 #include <SFML/System/Vector2.hpp>
 #include <vector>
 
-class UIView;
-
 namespace Game
 {
 	//Used for storing and controling all game related entities, as well as providing an entry point for the "game" side of application	
@@ -24,8 +22,6 @@ namespace Game
 		void CreatePlayer();
 		void CreateObstacle();
 		GameEngine::Entity* m_player;
-
-		UIView * m_view;
 	};
 }
 

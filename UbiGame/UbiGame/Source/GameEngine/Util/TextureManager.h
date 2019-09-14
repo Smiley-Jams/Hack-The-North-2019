@@ -12,6 +12,8 @@ namespace GameEngine
 		{
 			None = -1,
 			Player,
+			Cursor,
+			Cursor_clicked,
 			Obstacle,
 			Grass,
 			Water,
@@ -26,6 +28,8 @@ namespace GameEngine
 		{
 		case eTexture::Player: return "player1.png";
 		case eTexture::Obstacle: return "Obstacle.png";
+		case eTexture::Cursor: return "icons/cursor.png";
+		case eTexture::Cursor_clicked: return "icons/cursor_click.png";
 		}
 
 		return "UnknownTexType";
