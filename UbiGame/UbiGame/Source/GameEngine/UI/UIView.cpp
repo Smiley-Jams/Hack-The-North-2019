@@ -4,6 +4,7 @@
 
 #include "GameEngine/GameEngineMain.h"
 #include "GameEngine/Util/TextureManager.h"
+#include "GameEngine/Util/CameraManager.h"
 
 void UIView::init()
 {
@@ -14,9 +15,11 @@ void UIView::init()
 
 void UIView::render(sf::RenderTarget * renderTarget)
 {
-	// Render cursor based on whether click occurs
+	// Render cursor based on whether click occurs (Need to take into account camera position)
 	sf::Vector2i pos = sf::Mouse::getPosition(*GameEngine::GameEngineMain::GetInstance()->GetRenderWindow());
-	m_cursor.setPosition(sf::Vector2f(pos));
-	m_cursorClicked.setPosition(sf::Vector2f(pos));
+	sf::Vector2i cam = sf::Vector2i(GameEngine::CameraManager::GetInstance()->GetCameraView().getCenter());
+	sf::Vector2i scr = sf::Vector2i(GameEngine::GameEngineMain::GetInstance()->GetRenderWindow()->getSize()) / 2;
+	m_cursor.setPosition(sf::Vector2f(pos + cam - scr));
+	m_cursorClicked.setPosition(sf::Vector2f(pos + cam - scr));
 	renderTarget->draw(sf::Mouse::isButtonPressed(sf::Mouse::Left) ? m_cursorClicked : m_cursor);
 }

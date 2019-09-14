@@ -14,7 +14,6 @@ namespace GameEngine
 			Player,
 			Cursor,
 			Cursor_clicked,
-			Obstacle,
 			Grass,
 			Water,
 			Dirt,
@@ -27,7 +26,6 @@ namespace GameEngine
 		switch (texture)
 		{
 		case eTexture::Player: return "player1.png";
-		case eTexture::Obstacle: return "Obstacle.png";
 		case eTexture::Cursor: return "icons/cursor.png";
 		case eTexture::Cursor_clicked: return "icons/cursor_click.png";
 		}

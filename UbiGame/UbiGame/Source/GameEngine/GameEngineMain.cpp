@@ -101,11 +101,15 @@ void GameEngineMain::Update()
 	
 	RemovePendingEntities();
 	
+	// UPDATES
 	UpdateWindowEvents();
 	if (m_gameBoard)
 		m_gameBoard->Update();
 
 	UpdateEntities();
+	CameraManager::GetInstance()->update();
+
+	// RENDER FUNCTIONS
 	// Map::getInstance().render();
 	RenderEntities();
 	m_view->render(m_renderTarget);

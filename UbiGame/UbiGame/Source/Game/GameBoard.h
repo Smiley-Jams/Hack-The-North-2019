@@ -20,7 +20,6 @@ namespace Game
 
 	private:
 		void CreatePlayer();
-		void CreateObstacle();
 		GameEngine::Entity* m_player;
 	};
 }

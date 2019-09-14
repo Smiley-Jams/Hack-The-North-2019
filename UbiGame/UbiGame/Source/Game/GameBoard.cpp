@@ -17,7 +17,6 @@ GameBoard::GameBoard()
 	: m_player(nullptr)
 {
 	CreatePlayer();
-	CreateObstacle();
 
 	/*
 	std::string url = "https://testnet-algorand.api.purestake.io/ps1/v1/account/3ZVAYYEOZRPXD3XDNS3YRHP2CQ4RBPPUVL4HFIAOFVQXZ2TRKYBKLDMK6I";
@@ -28,6 +27,7 @@ GameBoard::GameBoard()
 	std::cout << result << std::endl;
 	*/
 
+	/*
 	std::string url = "https://postman-echo.com/post";
 	std::vector<std::string> headers;
 	headers.emplace_back("Host: testnet-algorand.api.purestake.io");
@@ -37,6 +37,7 @@ GameBoard::GameBoard()
 	data["test2"] = "stringggg";
 	json result = Network::PostRequest(url, headers, data);
 	std::cout << result << std::endl;
+	*/
 }
 
 
@@ -66,25 +67,6 @@ void GameBoard::CreatePlayer()
 	m_player->AddComponent<GameEngine::AnimationComponent>();
 
 	m_player->AddComponent<GameEngine::CollidablePhysicsComponent>();
-}
-
-
-void GameBoard::CreateObstacle()
-{
-	GameEngine::Entity* obstacle = new GameEngine::Entity();	
-	GameEngine::GameEngineMain::GetInstance()->AddEntity(obstacle);
-
-	obstacle->SetPos(sf::Vector2f(350.f, 150.f));
-	obstacle->SetSize(sf::Vector2f(150.f, 150.f));
-
-	//Render
-	GameEngine::SpriteRenderComponent* spriteRender = static_cast<GameEngine::SpriteRenderComponent*>
-		(obstacle->AddComponent<GameEngine::SpriteRenderComponent>());
-
-	spriteRender->SetFillColor(sf::Color::Transparent);
-	spriteRender->SetTexture(GameEngine::eTexture::Obstacle);
-
-	obstacle->AddComponent<GameEngine::CollidableComponent>();
 }
 
 
