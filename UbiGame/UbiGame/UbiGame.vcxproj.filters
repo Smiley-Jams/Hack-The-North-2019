@@ -137,5 +137,8 @@
     <ClInclude Include="Source\Game\Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameEngine\Util\Network.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -169,6 +169,7 @@
     <ClInclude Include="Source\GameEngine\EntitySystem\Components\CollidablePhysicsComponent.h" />
     <ClInclude Include="Source\GameEngine\EntitySystem\Components\CollidableComponent.h" />
     <ClInclude Include="Source\GameEngine\Util\CollisionManager.h" />
+    <ClInclude Include="Source\GameEngine\Util\Network.h" />
     <ClInclude Include="Source\GameEngine\Util\SoundManager.h" />
     <ClInclude Include="Source\Game\Components\PlayerMovementComponent.h" />
     <ClInclude Include="Source\Game\GameBoard.h" />
