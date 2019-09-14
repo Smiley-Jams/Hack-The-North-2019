@@ -8,6 +8,7 @@
 #include "GameEngine\Util\Network.h"
 
 #include "Game\Components\PlayerMovementComponent.h"
+#include "Map.h"
 
 using namespace Game;
 

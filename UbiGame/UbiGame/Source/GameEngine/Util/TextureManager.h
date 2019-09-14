@@ -14,7 +14,9 @@ namespace GameEngine
 			Player,
 			Obstacle,
 			Grass,
-			Count,
+			Water,
+			Dirt,
+			Count
 		};
 	}	
 

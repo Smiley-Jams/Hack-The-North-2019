@@ -54,14 +54,19 @@ void Map::render()
 
 Map::Map()
 {
-	//Define tile globally shared attributes here.
-	Tile::AllShared& allShared = Tile::s_allShared;
+	//Define different globally shared tile attributes here.
+	TileAllShared& allShared = Tile::s_allShared;
 	allShared.m_width = GameEngine::GameEngineMain::WINDOW_WIDTH;
 	allShared.m_height = GameEngine::GameEngineMain::WINDOW_HEIGHT;
 
 	//Define and wire different type-shared tile attributes here.
-	Tile::TypeShared grass = { GameEngine::eTexture::Grass, sf::Color::Green };
+	TileTypeShared grass = { GameEngine::eTexture::Grass, sf::Color::Green };
+	TileTypeShared water = { GameEngine::eTexture::Water, sf::Color::Blue };
+	TileTypeShared dirt = { GameEngine::eTexture::Dirt, sf::Color::Yellow };
+
 	Tile::s_typeShared[GRASS] = grass;
+	Tile::s_typeShared[WATER] = water;
+	Tile::s_typeShared[DIRT] = dirt;
 }
 
 Map::~Map()
