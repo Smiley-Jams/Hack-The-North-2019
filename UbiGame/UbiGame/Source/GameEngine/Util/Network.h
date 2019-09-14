@@ -5,11 +5,15 @@
 #include <fstream>
 #include <sstream>
 
+#include "json.hpp"
+
 #include <msgpack.hpp>
+
+using json = nlohmann::json;
 
 namespace Network 
 {
-	std::string GetRequest(const std::string& url, const std::vector<std::string>& headers)
+	json GetRequest(const std::string& url, const std::vector<std::string>& headers)
 	{
 		std::string syscall("curl \"");
 		syscall += url;
@@ -27,6 +31,6 @@ namespace Network
 		std::ifstream file("temp.txt");
 		std::stringstream strStream;
 		strStream << file.rdbuf();
-		return strStream.str();
+		return json::parse(strStream.str());
 	}
 }

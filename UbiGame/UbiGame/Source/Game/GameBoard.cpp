@@ -25,7 +25,7 @@ GameBoard::GameBoard()
 	std::vector<std::string> headers;
 	headers.emplace_back("Host: testnet-algorand.api.purestake.io");
 	headers.push_back("X-API-Key: B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab");
-	std::string result = Network::GetRequest(url, headers);
+	json result = Network::GetRequest(url, headers);
 	std::cout << result << std::endl;
 	*/
 }
