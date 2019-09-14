@@ -20,8 +20,20 @@ The items will be the goal of the game, these items could be cosmetic so it coul
 
 The *auction house* facilitates the buying and selling of resources and items. This is the part of the game that encourages collaboration between players; The specialization of different professions will require players to work with each other to craft better items.
 
-## TECH
+## TECH / MECHANICS
 
 ### The tick mechanic
 
 Every set interval, the players will receive resources based on the tile that they are occupying, this update is called a tick. Since everything is decentralized, there is no server to send resources out to the players. As such, the tick will be calculated by the clients themselves based on how much time has passed, then add that data to the blockchain.
+
+### Resources
+
+For now, there will be three basic resources:
+
+- Wood
+- Ore
+- Leather
+
+Each resource can have different tiers, and higher tier resources have to be obtained either by buying on the auction house or by leveling up the respective gathering profession.
+
+Gathering levels can be handled by a simple XP bar. The system can work similar to DnD multiclassing, where the XP required for the next level is based on total level instead of specific profession levels. This prevents players from just maxing out everything and completing the whole game solo.
