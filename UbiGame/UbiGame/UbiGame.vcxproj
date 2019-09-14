@@ -69,10 +69,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\ianw3214\workspace\Hack-The-North-2019\UbiGame\nlohmann;$(SolutionDir)msgpack\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)nlohmann;$(SolutionDir)msgpack\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\ianw3214\workspace\Hack-The-North-2019\UbiGame\nlohmann;$(SolutionDir)msgpack\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)nlohmann;$(SolutionDir)msgpack\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -91,7 +91,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\ianw3214\workspace\Hack-The-North-2019\UbiGame\nlohmann;$(ProjectDir)\Source\;$(SolutionDir)\SFML-2.5.0\include\;$(SolutionDir)msgpack\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)nlohmann;$(ProjectDir)\Source\;$(SolutionDir)\SFML-2.5.0\include\;$(SolutionDir)msgpack\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -126,7 +126,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\ianw3214\workspace\Hack-The-North-2019\UbiGame\nlohmann;$(ProjectDir)\Source\;$(SolutionDir)\SFML-2.5.0\include\;$(SolutionDir)msgpack\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)nlohmann;$(ProjectDir)\Source\;$(SolutionDir)\SFML-2.5.0\include\;$(SolutionDir)msgpack\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
