@@ -1,31 +1,22 @@
 #include "Map.h"
+
 #include "GameEngine/GameEngineMain.h"
 #include "GameEngine/EntitySystem/Entity.h"
 #include "GameEngine/EntitySystem/Components/SpriteRenderComponent.h"
+
 #include <cassert>
 #include <cstdio>
+#include <fstream>
 
+#include "json.hpp"
+using json = nlohmann::json;
+
+// MAPS ARE HARD CODED TO BE 16 x 16
 namespace {
 	const unsigned int g_rows = 16;
 	const unsigned int g_cols = 16;
-	/*TileType*/unsigned int g_tiles[g_rows][g_cols] = {
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	};
+	unsigned int g_tiles[g_rows][g_cols];
+	TileResource g_resources[g_rows][g_cols];
 }
 
 Map& Map::getInstance()
@@ -40,18 +31,6 @@ eTileType Map::getTileType(unsigned int x, unsigned int y)
 	return static_cast<eTileType>(g_tiles[y][x]);
 }
 
-/*
-GameEngine::eTexture::type Map::getTileTexture(unsigned int x, unsigned int y)
-{
-	return getTypeShared(x, y).m_texture;
-}
-
-sf::Color Map::getTileColor(unsigned int x, unsigned int y)
-{
-	return getTypeShared(x, y).m_color;
-}
-*/
-
 sf::Vector2u Map::getTilePosition(unsigned int x, unsigned int y)
 {
 	//Do this just to ensure we don't go out of bounds.
@@ -59,7 +38,39 @@ sf::Vector2u Map::getTilePosition(unsigned int x, unsigned int y)
 	return sf::Vector2u{ Tile::s_allShared.m_width * x, Tile::s_allShared.m_height * y };
 }
 
-//Call this at the start of MainGame::Update().
+void Map::loadMap(const std::string& path)
+{
+	std::ifstream map(path);
+	if (map.is_open())
+	{
+		json map_data;
+		map >> map_data;
+
+		try
+		{
+			for (int y = 0; y < g_rows; ++y)
+			{
+				for (int x = 0; x < g_cols; ++x)
+				{
+					g_tiles[y][x] = map_data["tiles"][y * g_rows + x];
+					g_resources[y][x].m_wood = map_data["resources"][y * g_rows + x]["wood"];
+					g_resources[y][x].m_ore  = map_data["resources"][y * g_rows + x]["ore"];
+					g_resources[y][x].m_wool = map_data["resources"][y * g_rows + x]["wool"];
+				}
+			}
+		}
+		catch (std::exception& e)
+		{
+			// ERROR
+		}
+	}
+	else
+	{
+		// ERROR
+	}
+}
+
+// Call this at the start of MainGame::Update().
 void Map::render()
 {
 	sf::RenderTarget * target = const_cast<sf::RenderTarget*>(GameEngine::GameEngineMain::GetInstance()->getRenderTarget());
@@ -88,13 +99,15 @@ Map::Map()
 	TileAllShared& allShared = Tile::s_allShared;
 	// allShared.m_width = GameEngine::GameEngineMain::WINDOW_WIDTH / g_cols;
 	// allShared.m_height = GameEngine::GameEngineMain::WINDOW_HEIGHT / g_rows;
-	allShared.m_width = 100;
-	allShared.m_height = 100;
+	allShared.m_width = 128;
+	allShared.m_height = 128;
 
 	//Define and wire different type-shared tile attributes here.
 	Tile::s_typeShared[GRASS].m_sprite.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Tile_grass));
 	Tile::s_typeShared[FOREST].m_sprite.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Tile_forest));
 	Tile::s_typeShared[MOUNTAIN].m_sprite.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Tile_mountain));
+
+	loadMap();
 }
 
 Map::~Map()
