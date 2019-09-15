@@ -59,8 +59,8 @@ public:
 	void loadMap(const std::string& path = "Resources/maps/out.json");
 	void render();
 
-	float getWidth();
-	float getHeight();
+	float getWidth() const;
+	float getHeight() const;
 
 private:
 	Map();

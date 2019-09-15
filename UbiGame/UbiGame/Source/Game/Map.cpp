@@ -77,11 +77,6 @@ void Map::render()
 	sf::RenderTarget * target = const_cast<sf::RenderTarget*>(GameEngine::GameEngineMain::GetInstance()->getRenderTarget());
 	const TileAllShared& allShared = Tile::s_allShared;
 	GameEngine::CameraManager& camera = *GameEngine::CameraManager::GetInstance();
-	//sf::FloatRect viewport = camera.GetCameraView().getViewport();
-	//printf("%f %f %f %f\n", viewport.left, viewport.top, viewport.width, viewport.height);
-	//Figure out the index that the cursor is in, check for it each iteration of the loop, then highlight it.
-	//Constrain the camera to prevent it from going off map.
-	printf("%f %f\n", camera.GetCameraView().getCenter().x, camera.GetCameraView().getCenter().y);
 	for (unsigned int i = 0; i < g_rows; i++) {
 		for (unsigned int j = 0; j < g_cols; j++) {
 			getTypeShared(j, i).m_sprite.setPosition((sf::Vector2f(getTilePosition(j, i))));
@@ -90,12 +85,12 @@ void Map::render()
 	}
 }
 
-float Map::getWidth()
+float Map::getWidth() const
 {
 	return Tile::s_allShared.m_width * g_cols;
 }
 
-float Map::getHeight()
+float Map::getHeight() const
 {
 	return Tile::s_allShared.m_height * g_rows;
 }

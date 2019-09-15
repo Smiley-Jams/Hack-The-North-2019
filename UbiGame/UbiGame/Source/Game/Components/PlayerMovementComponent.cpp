@@ -1,8 +1,7 @@
 #include "PlayerMovementComponent.h"
 #include "GameEngine\GameEngineMain.h"
-
 #include "GameEngine\EntitySystem\Components\SpriteRenderComponent.h"
-
+#include "Game/Map.h"
 #include <SFML/Window/Keyboard.hpp>
 
 using namespace Game;
@@ -62,5 +61,11 @@ void PlayerMovementComponent::Update()
 	}
 	
 	//Update the entity position with new velocity
-	GetEntity()->SetPos(GetEntity()->GetPos() + wantedVel);	
+	const Map& map = Map::getInstance();
+	GameEngine::Entity& entity = *GetEntity();
+	sf::Vector2f desiredPosition = entity.GetPos() + wantedVel;
+	sf::Vector2f entitySize = entity.GetSize();
+
+	if (desiredPosition.x >= entitySize.x / 2.0f && desiredPosition.x < map.getWidth() - entitySize.x / 2.0f && desiredPosition.y >= entitySize.y / 2.0f && desiredPosition.y < map.getHeight() - entitySize.y /2.0f)
+		entity.SetPos(desiredPosition);
 }
