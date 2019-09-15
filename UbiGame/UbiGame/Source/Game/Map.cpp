@@ -74,7 +74,8 @@ void Map::loadMap(const std::string& path)
 // Call this at the start of MainGame::Update().
 void Map::render()
 {
-	sf::RenderTarget * target = const_cast<sf::RenderTarget*>(GameEngine::GameEngineMain::GetInstance()->getRenderTarget());
+	GameEngine::GameEngineMain& engine = *GameEngine::GameEngineMain::GetInstance();
+	sf::RenderTarget * target = const_cast<sf::RenderTarget*>(engine.getRenderTarget());
 	const TileAllShared& allShared = Tile::s_allShared;
 	GameEngine::CameraManager& camera = *GameEngine::CameraManager::GetInstance();
 	for (unsigned int i = 0; i < g_rows; i++) {
@@ -83,6 +84,28 @@ void Map::render()
 			target->draw(getTypeShared(j, i).m_sprite);
 		}
 	}
+
+	
+	sf::View view = GameEngine::CameraManager::GetInstance()->GetCameraView();
+	sf::Vector2f viewCentre = GameEngine::CameraManager::GetInstance()->GetCameraView().getCenter();
+
+	const sf::RenderWindow& window = *engine.GetRenderWindow();
+	sf::Vector2f screenSize(sf::Vector2f{ window.getSize() });
+
+	sf::Vector2f viewTopLeft = viewCentre - view.getSize() / 2.0f;
+	float xOffset = viewTopLeft.x > screenSize.x ? viewTopLeft.x - screenSize.x : 0.0f;
+	float yOffset = viewTopLeft.y > screenSize.y ? viewTopLeft.y - screenSize.y : 0.0f;
+
+	//Camera translation is hurting my 5:30am brain :(
+	sf::RectangleShape cursorTile{ sf::Vector2f{ (float)allShared.m_width, (float)allShared.m_height} };
+	sf::Vector2i cursorIndex = sf::Mouse::getPosition(*engine.GetRenderWindow());
+	cursorIndex.x += xOffset;
+	cursorIndex.y += yOffset;
+	cursorIndex.x /= allShared.m_width;
+	cursorIndex.y /= allShared.m_height;
+	cursorTile.setPosition(sf::Vector2f{ (float)(cursorIndex.x * allShared.m_width), (float)(cursorIndex.y * allShared.m_height) } -cursorTile.getSize() / 2.0f);
+	cursorTile.setFillColor(sf::Color::Yellow);
+	target->draw(cursorTile);
 }
 
 float Map::getWidth() const

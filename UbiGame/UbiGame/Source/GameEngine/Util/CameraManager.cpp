@@ -24,9 +24,10 @@ CameraManager::~CameraManager()
 void CameraManager::update(float delta)
 {
 	// HARD CODED BARS TO SEE IF MOUSE IS HOVERED OVER CAMERA MOVE AREA
-	sf::Vector2u screenSize = GameEngine::GameEngineMain::GetInstance()->GetRenderWindow()->getSize();
+	const sf::RenderWindow& window = *GameEngine::GameEngineMain::GetInstance()->GetRenderWindow();
+	sf::Vector2u screenSize = window.getSize();
 	sf::Vector2f cameraCentre = GetCameraView().getCenter();
-	sf::Vector2i mousePosition = sf::Mouse::getPosition(*GameEngine::GameEngineMain::GetInstance()->GetRenderWindow());
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 
 	//Constrain based on camera position, mouse move margin, and mouse position.
 	sf::FloatRect view {
