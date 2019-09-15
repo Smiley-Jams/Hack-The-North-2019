@@ -40,13 +40,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -156,6 +156,7 @@
     <ClCompile Include="Source\GameEngine\EntitySystem\Components\CollidableComponent.cpp" />
     <ClCompile Include="Source\GameEngine\Util\CollisionManager.cpp" />
     <ClCompile Include="Source\GameEngine\Util\SoundManager.cpp" />
+    <ClCompile Include="Source\Game\AuctionHouse.cpp" />
     <ClCompile Include="Source\Game\Components\PlayerMovementComponent.cpp" />
     <ClCompile Include="Source\Game\GameBoard.cpp" />
     <ClCompile Include="Source\GameEngine\EntitySystem\Components\RenderComponent.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Source\GameEngine\Util\CollisionManager.h" />
     <ClInclude Include="Source\GameEngine\Util\Network.h" />
     <ClInclude Include="Source\GameEngine\Util\SoundManager.h" />
+    <ClInclude Include="Source\Game\AuctionHouse.h" />
     <ClInclude Include="Source\Game\Map.h" />
     <ClInclude Include="Source\Game\Components\PlayerMovementComponent.h" />
     <ClInclude Include="Source\Game\GameBoard.h" />

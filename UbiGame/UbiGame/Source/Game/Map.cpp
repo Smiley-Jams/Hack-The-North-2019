@@ -4,6 +4,7 @@
 #include "GameEngine/EntitySystem/Entity.h"
 #include "GameEngine/EntitySystem/Components/SpriteRenderComponent.h"
 #include "GameEngine/Util/CameraManager.h"
+#include "GameEngine/UI/text.h"
 
 #include <cassert>
 #include <cstdio>
@@ -93,29 +94,34 @@ void Map::render()
 	sf::Vector2f screenSize(sf::Vector2f{ window.getSize() });
 
 	sf::Vector2f viewTopLeft = viewCentre - view.getSize() / 2.0f;
-	float xOffset = viewTopLeft.x > screenSize.x ? viewTopLeft.x - screenSize.x : 0.0f;
-	float yOffset = viewTopLeft.y > screenSize.y ? viewTopLeft.y - screenSize.y : 0.0f;
 
 	//Camera translation is hurting my 5:30am brain :(
 	sf::RectangleShape cursorTile{ sf::Vector2f{ (float)allShared.m_width, (float)allShared.m_height} };
 	sf::Vector2i cursorIndex = sf::Mouse::getPosition(*engine.GetRenderWindow());
-	cursorIndex.x += xOffset;
-	cursorIndex.y += yOffset;
+	cursorIndex.x += static_cast<int>(viewTopLeft.x);
+	cursorIndex.y += static_cast<int>(viewTopLeft.y);
 	cursorIndex.x /= allShared.m_width;
 	cursorIndex.y /= allShared.m_height;
-	cursorTile.setPosition(sf::Vector2f{ (float)(cursorIndex.x * allShared.m_width), (float)(cursorIndex.y * allShared.m_height) } -cursorTile.getSize() / 2.0f);
-	cursorTile.setFillColor(sf::Color::Yellow);
+	cursorTile.setPosition(sf::Vector2f{ (float)(cursorIndex.x * allShared.m_width), (float)(cursorIndex.y * allShared.m_height) });
+	cursorTile.setFillColor(sf::Color(0, 0, 0, 100));
+	cursorTile.setOutlineColor(sf::Color::White);
+	cursorTile.setOutlineThickness(3.0);
 	target->draw(cursorTile);
 }
 
 float Map::getWidth() const
 {
-	return Tile::s_allShared.m_width * g_cols;
+	return static_cast<float>(Tile::s_allShared.m_width * g_cols);
 }
 
 float Map::getHeight() const
 {
-	return Tile::s_allShared.m_height * g_rows;
+	return static_cast<float>(Tile::s_allShared.m_height * g_rows);
+}
+
+const TileResource& Map::getResourceAt(int tile_x, int tile_y) const
+{
+	return g_resources[tile_y][tile_x];
 }
 
 Map::Map()

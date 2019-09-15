@@ -62,6 +62,8 @@ public:
 	float getWidth() const;
 	float getHeight() const;
 
+	const TileResource& getResourceAt(int tile_x, int tile_y) const;
+
 private:
 	Map();
 	~Map();

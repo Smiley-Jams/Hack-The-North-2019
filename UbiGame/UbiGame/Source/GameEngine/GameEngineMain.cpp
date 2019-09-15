@@ -15,12 +15,15 @@
 
 using namespace GameEngine;
 
-const unsigned int GameEngineMain::WINDOW_HEIGHT = 800;
-const unsigned int GameEngineMain::WINDOW_WIDTH = 800;
+const unsigned int GameEngineMain::WINDOW_HEIGHT = 720;
+const unsigned int GameEngineMain::WINDOW_WIDTH = 1280;
 //Nullptr init for singleton class
 GameEngineMain* GameEngineMain::sm_instance = nullptr;
 sf::Clock		GameEngineMain::sm_deltaTimeClock;
 sf::Clock		GameEngineMain::sm_gameClock;
+
+sf::Sprite sCursor;
+sf::Sprite sCursorClicked;
 
 GameEngineMain::GameEngineMain()
 	: m_renderTarget(nullptr)	
@@ -58,6 +61,9 @@ void GameEngineMain::OnInitialised()
 	m_view->init();
 	m_window = new UIWindow();
 	m_window->init();
+
+	sCursor.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Cursor));
+	sCursorClicked.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Cursor_clicked));
 }
 
 
@@ -118,8 +124,16 @@ void GameEngineMain::Update()
 	// RENDER FUNCTIONS
 	// Map::getInstance().render();
 	RenderEntities();
-	if (m_window) m_window->render(m_renderTarget);
 	if (m_view) m_view->render(m_renderTarget);
+	if (m_window) m_window->render(m_renderTarget);
+
+	// Render cursor based on whether click occurs (Need to take into account camera position)
+	sf::Vector2i cam = sf::Vector2i(GameEngine::CameraManager::GetInstance()->GetCameraView().getCenter());
+	sf::Vector2i scr = sf::Vector2i(GameEngine::GameEngineMain::GetInstance()->GetRenderWindow()->getSize()) / 2;
+	sf::Vector2i pos = sf::Mouse::getPosition(*GameEngine::GameEngineMain::GetInstance()->GetRenderWindow());
+	sCursor.setPosition(sf::Vector2f(pos + cam - scr));
+	sCursorClicked.setPosition(sf::Vector2f(pos + cam - scr));
+	m_renderTarget->draw(sf::Mouse::isButtonPressed(sf::Mouse::Left) ? sCursorClicked : sCursor);
 
 	if (m_renderWindow && m_renderWindow->isOpen())
 	{
