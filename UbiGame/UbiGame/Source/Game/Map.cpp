@@ -64,20 +64,10 @@ void Map::render()
 {
 	sf::RenderTarget * target = const_cast<sf::RenderTarget*>(GameEngine::GameEngineMain::GetInstance()->getRenderTarget());
 	const TileAllShared& allShared = Tile::s_allShared;
-	// GameEngine::Entity entity;
-	// GameEngine::SpriteRenderComponent& renderer = *static_cast<GameEngine::SpriteRenderComponent*>
-	// 	(entity.AddComponent<GameEngine::SpriteRenderComponent>());
-	// entity.SetSize(sf::Vector2f{ (float)allShared.m_width, (float)allShared.m_height });
-	// sf::Vector2f entitySize = entity.GetSize();
 	for (unsigned int i = 0; i < g_rows; i++) {
 		for (unsigned int j = 0; j < g_cols; j++) {
-			//Get tile position and texture information, render accordingly.	
-			// entity.SetPos((sf::Vector2f)getTilePosition(j, i));
-			// renderer.SetTexture(getTileTexture(j, i));
-			// renderer.SetFillColor(getTileColor(j, i));
-			// renderer.Render(const_cast<sf::RenderTarget*>(GameEngine::GameEngineMain::GetInstance()->getRenderTarget()));
-			Tile::s_typeShared[getTileType(j, i)].m_sprite.setPosition((sf::Vector2f(getTilePosition(j, i))));
-			target->draw(Tile::s_typeShared[getTileType(j, i)].m_sprite);
+			getTypeShared(j, i).m_sprite.setPosition((sf::Vector2f(getTilePosition(j, i))));
+			target->draw(getTypeShared(j, i).m_sprite);
 		}
 	}
 }
