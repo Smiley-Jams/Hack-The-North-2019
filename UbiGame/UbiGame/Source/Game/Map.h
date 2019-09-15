@@ -1,4 +1,7 @@
 #pragma once
+
+#include <SFML/Graphics.hpp>
+
 #include "GameEngine\Util\TextureManager.h"
 
 template<typename AllShared, typename TypeShared, const unsigned int TypeCount>
@@ -21,15 +24,14 @@ struct TileAllShared {
 
 //Data common to type of tile.
 struct TileTypeShared {
-	GameEngine::eTexture::type  m_texture;
-	sf::Color m_color = sf::Color::Transparent;//Placeholder until we have textures.
+	sf::Sprite m_sprite;
 };
 
 enum eTileType : unsigned int {
 	DEFAULT = 0,
 	GRASS,
-	WATER,
-	DIRT,
+	FOREST,
+	MOUNTAIN,
 	NUM_TYPES
 };
 
@@ -46,8 +48,8 @@ public:
 
 	//The price we pay for optimal memory saving is having to make lookup functions rather than having public members.
 	eTileType getTileType(unsigned int x, unsigned int y);
-	GameEngine::eTexture::type getTileTexture(unsigned int x, unsigned int y);
-	sf::Color getTileColor(unsigned int x, unsigned int y);
+	// GameEngine::eTexture::type getTileTexture(unsigned int x, unsigned int y);
+	// sf::Color getTileColor(unsigned int x, unsigned int y);
 	sf::Vector2u getTilePosition(unsigned int x, unsigned int y);
 
 	void render();
