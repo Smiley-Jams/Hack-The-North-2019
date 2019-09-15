@@ -11,6 +11,7 @@
 #include "Game/Map.h"
 #include "UI/text.h"
 #include "UI/UIView.h"
+#include "UI/UIWindow.h"
 
 using namespace GameEngine;
 
@@ -55,6 +56,8 @@ void GameEngineMain::OnInitialised()
 
 	m_view = new UIView();
 	m_view->init();
+	m_window = new UIWindow();
+	m_window->init();
 }
 
 
@@ -115,6 +118,7 @@ void GameEngineMain::Update()
 	// RENDER FUNCTIONS
 	// Map::getInstance().render();
 	RenderEntities();
+	if (m_window) m_window->render(m_renderTarget);
 	if (m_view) m_view->render(m_renderTarget);
 
 	if (m_renderWindow && m_renderWindow->isOpen())

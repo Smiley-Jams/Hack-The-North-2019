@@ -20,6 +20,9 @@ namespace GameEngine
 			Icon_wood,
 			Icon_ore,
 			Icon_wool,
+			UI_side_button,
+			UI_side_button_clicked,
+			UI_background,
 			Count
 		};
 	}	
@@ -34,6 +37,9 @@ namespace GameEngine
 		case eTexture::Icon_wood: return "icons/wood.png";
 		case eTexture::Icon_ore: return "icons/ore.png";
 		case eTexture::Icon_wool: return "icons/wool.png";
+		case eTexture::UI_side_button: return "icons/UI_sidebar.png";
+		case eTexture::UI_side_button_clicked: return "icons/UI_sidebar_press.png";
+		case eTexture::UI_background: return "icons/UI_background.png";
 		}
 
 		return "UnknownTexType";

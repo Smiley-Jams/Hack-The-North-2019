@@ -9,6 +9,7 @@
 #include "GameEngine\EntitySystem\Components\RenderComponent.h"
 
 class UIView;
+class UIWindow;
 
 namespace GameEngine
 {
@@ -62,6 +63,7 @@ namespace GameEngine
 		float				m_lastDT;
 
 		UIView * m_view;
+		UIWindow * m_window;
 
 		bool m_windowInitialised;
 	};

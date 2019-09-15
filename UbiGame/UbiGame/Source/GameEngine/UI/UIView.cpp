@@ -15,13 +15,14 @@ sf::Sprite sWoolSprite;
 void UIView::init()
 {
 	GameEngine::GameEngineMain::GetInstance()->GetRenderWindow()->setMouseCursorVisible(false);
+	GameEngine::GameEngineMain::GetInstance()->GetRenderWindow()->setMouseCursorGrabbed(true);
+
 	m_cursor.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Cursor));
 	m_cursorClicked.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Cursor_clicked));
 
 	sWoodSprite.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Icon_wood));
 	sOreSprite.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Icon_ore));
 	sWoolSprite.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Icon_wool));
-
 }
 
 void UIView::set_resources(uint32_t wood, uint32_t ore, uint32_t wool)

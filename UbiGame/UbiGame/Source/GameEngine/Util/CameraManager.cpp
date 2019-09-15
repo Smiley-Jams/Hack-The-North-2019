@@ -6,7 +6,7 @@ using namespace GameEngine;
 
 CameraManager* CameraManager::sm_instance = nullptr;
 
-constexpr int s_hoverMargin = 100;
+constexpr int s_hoverMargin = 40;
 
 CameraManager::CameraManager()
 {

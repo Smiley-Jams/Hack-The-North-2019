@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Source\GameEngine\UI\text.cpp" />
     <ClCompile Include="Source\GameEngine\UI\UIView.cpp" />
+    <ClCompile Include="Source\GameEngine\UI\UIWindow.cpp" />
     <ClCompile Include="Source\GameEngine\Util\CameraManager.cpp" />
     <ClCompile Include="Source\GameEngine\EntitySystem\Components\ParticleComponent.cpp" />
     <ClCompile Include="Source\GameEngine\EntitySystem\Components\ParticleEmitterComponent.cpp" />
@@ -169,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="Source\GameEngine\UI\text.h" />
     <ClInclude Include="Source\GameEngine\UI\UIView.h" />
+    <ClInclude Include="Source\GameEngine\UI\UIWindow.h" />
     <ClInclude Include="Source\GameEngine\Util\CameraManager.h" />
     <ClInclude Include="Source\GameEngine\EntitySystem\Components\ParticleComponent.h" />
     <ClInclude Include="Source\GameEngine\EntitySystem\Components\ParticleEmitterComponent.h" />
