@@ -36,7 +36,7 @@ void PlayerMovementComponent::Update()
 	//by default the wanted velocity is 0
 	sf::Vector2f wantedVel = sf::Vector2f(0.f, 0.f);
 	//player Velocity is applied when we have some input (for the time being let's make it 10pixels a second)
-	float playerVel = 100.f;
+	float playerVel = 200.f;
 
 	GameEngine::AnimationComponent* animComponent = GetEntity()->GetComponent<GameEngine::AnimationComponent>();
 

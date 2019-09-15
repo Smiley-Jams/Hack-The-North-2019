@@ -38,6 +38,13 @@ void UIView::render(sf::RenderTarget * renderTarget)
 	sf::Vector2i scr = sf::Vector2i(GameEngine::GameEngineMain::GetInstance()->GetRenderWindow()->getSize()) / 2;
 
 	// Render UI showing the player's resources
+	sf::RectangleShape bg(sf::Vector2f(400.f, 40.f));
+	bg.setPosition(static_cast<float>(scr.x * 2 - 400), 0.f);
+	bg.setFillColor(sf::Color(0, 0, 0, 100));
+	bg.setOutlineColor(sf::Color::White);
+	bg.setOutlineThickness(3.0);
+	renderTarget->draw(bg);
+	// Render the actual icon and numbers
 	sf::Vector2i curr = sf::Vector2i(static_cast<int>(GameEngine::GameEngineMain::GetInstance()->GetRenderWindow()->getSize().x), 0);
 	curr.x -= sResourceSpacing;
 	sWoolSprite.setPosition(sf::Vector2f(curr + cam - scr));
@@ -68,13 +75,13 @@ void UIView::render(sf::RenderTarget * renderTarget)
 	cursorIndex.y = tile_y * 128;
 	sWoodSprite.setPosition(sf::Vector2f(cursorIndex));
 	renderTarget->draw(sWoodSprite);
-	Text::drawText(std::to_string(Map::getInstance().getResourceAt(tile_x, tile_y).m_wood), cursorIndex + sf::Vector2i(40.f, 10.f), 16);
+	Text::drawText(std::to_string(Map::getInstance().getResourceAt(tile_x, tile_y).m_wood), cursorIndex + sf::Vector2i(40, 10), 16);
 	cursorIndex.y += 40;
 	sOreSprite.setPosition(sf::Vector2f(cursorIndex));
 	renderTarget->draw(sOreSprite);
-	Text::drawText(std::to_string(Map::getInstance().getResourceAt(tile_x, tile_y).m_ore), cursorIndex + sf::Vector2i(40.f, 10.f), 16);
+	Text::drawText(std::to_string(Map::getInstance().getResourceAt(tile_x, tile_y).m_ore), cursorIndex + sf::Vector2i(40, 10), 16);
 	cursorIndex.y += 40;
 	sWoolSprite.setPosition(sf::Vector2f(cursorIndex));
 	renderTarget->draw(sWoolSprite);
-	Text::drawText(std::to_string(Map::getInstance().getResourceAt(tile_x, tile_y).m_wool), cursorIndex + sf::Vector2i(40.f, 10.f), 16);
+	Text::drawText(std::to_string(Map::getInstance().getResourceAt(tile_x, tile_y).m_wool), cursorIndex + sf::Vector2i(40, 10), 16);
 }
