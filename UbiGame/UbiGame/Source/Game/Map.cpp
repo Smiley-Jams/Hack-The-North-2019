@@ -3,6 +3,7 @@
 #include "GameEngine/GameEngineMain.h"
 #include "GameEngine/EntitySystem/Entity.h"
 #include "GameEngine/EntitySystem/Components/SpriteRenderComponent.h"
+#include "GameEngine/Util/CameraManager.h"
 
 #include <cassert>
 #include <cstdio>
@@ -75,6 +76,12 @@ void Map::render()
 {
 	sf::RenderTarget * target = const_cast<sf::RenderTarget*>(GameEngine::GameEngineMain::GetInstance()->getRenderTarget());
 	const TileAllShared& allShared = Tile::s_allShared;
+	GameEngine::CameraManager& camera = *GameEngine::CameraManager::GetInstance();
+	//sf::FloatRect viewport = camera.GetCameraView().getViewport();
+	//printf("%f %f %f %f\n", viewport.left, viewport.top, viewport.width, viewport.height);
+	//Figure out the index that the cursor is in, check for it each iteration of the loop, then highlight it.
+	//Constrain the camera to prevent it from going off map.
+	printf("%f %f\n", camera.GetCameraView().getCenter().x, camera.GetCameraView().getCenter().y);
 	for (unsigned int i = 0; i < g_rows; i++) {
 		for (unsigned int j = 0; j < g_cols; j++) {
 			getTypeShared(j, i).m_sprite.setPosition((sf::Vector2f(getTilePosition(j, i))));
@@ -83,12 +90,20 @@ void Map::render()
 	}
 }
 
+float Map::getWidth()
+{
+	return Tile::s_allShared.m_width * g_cols;
+}
+
+float Map::getHeight()
+{
+	return Tile::s_allShared.m_height * g_rows;
+}
+
 Map::Map()
 {
 	//Define different globally shared tile attributes here.
 	TileAllShared& allShared = Tile::s_allShared;
-	// allShared.m_width = GameEngine::GameEngineMain::WINDOW_WIDTH / g_cols;
-	// allShared.m_height = GameEngine::GameEngineMain::WINDOW_HEIGHT / g_rows;
 	allShared.m_width = 128;
 	allShared.m_height = 128;
 

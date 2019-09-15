@@ -34,10 +34,10 @@ namespace GameEngine
 		void OnInitialised();
 		bool IsGameOver() const { return m_gameBoard && m_gameBoard->IsGameOver(); }
 
+	private:
 		static const unsigned int WINDOW_HEIGHT;
 		static const unsigned int WINDOW_WIDTH;
 
-	private:
 		GameEngineMain();
 
 		void CreateAndSetUpWindow();

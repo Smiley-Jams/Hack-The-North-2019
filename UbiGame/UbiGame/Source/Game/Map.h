@@ -1,7 +1,6 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
-
+#include <string>
 #include "GameEngine\Util\TextureManager.h"
 
 template<typename AllShared, typename TypeShared, const unsigned int TypeCount>
@@ -58,8 +57,10 @@ public:
 	sf::Vector2u getTilePosition(unsigned int x, unsigned int y);
 
 	void loadMap(const std::string& path = "Resources/maps/out.json");
-
 	void render();
+
+	float getWidth();
+	float getHeight();
 
 private:
 	Map();

@@ -2,6 +2,8 @@
 
 #include <SFML/Window/Mouse.hpp>
 #include "GameEngine/GameEngineMain.h"
+#include "Game/Map.h"
+
 using namespace GameEngine;
 
 CameraManager* CameraManager::sm_instance = nullptr;
@@ -22,21 +24,29 @@ CameraManager::~CameraManager()
 void CameraManager::update(float delta)
 {
 	// HARD CODED BARS TO SEE IF MOUSE IS HOVERED OVER CAMERA MOVE AREA
-	sf::Vector2u size = GameEngine::GameEngineMain::GetInstance()->GetRenderWindow()->getSize();
-	sf::Vector2i pos = sf::Mouse::getPosition(*GameEngine::GameEngineMain::GetInstance()->GetRenderWindow());
-	if (pos.x < s_hoverMargin)
+	sf::Vector2u screenSize = GameEngine::GameEngineMain::GetInstance()->GetRenderWindow()->getSize();
+	sf::Vector2f cameraCentre = GetCameraView().getCenter();
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(*GameEngine::GameEngineMain::GetInstance()->GetRenderWindow());
+
+	//Constrain based on camera position, mouse move margin, and mouse position.
+	sf::FloatRect view {
+		cameraCentre.x - screenSize.x / 2, cameraCentre.y - screenSize.y / 2,
+		cameraCentre.x + screenSize.x / 2, cameraCentre.y + screenSize.y / 2,
+	};
+
+	if (mousePosition.x < s_hoverMargin && view.left > 1)
 	{
 		GetCameraView().move(-1.0f, 0.f);
 	}
-	if (pos.x > size.x - s_hoverMargin)
+	if (mousePosition.x > screenSize.x - s_hoverMargin && view.width < Map::getInstance().getWidth())
 	{
 		GetCameraView().move(1.0f, 0.f);
 	}
-	if (pos.y < s_hoverMargin)
+	if (mousePosition.y < s_hoverMargin && view.top > 1)
 	{
 		GetCameraView().move(0.f, -1.0f);
 	}
-	if (pos.y > size.y - s_hoverMargin)
+	if (mousePosition.y > screenSize.y - s_hoverMargin && view.height < Map::getInstance().getHeight())
 	{
 		GetCameraView().move(0.f, 1.0f);
 	}
