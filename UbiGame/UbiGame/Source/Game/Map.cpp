@@ -4,6 +4,7 @@
 #include "GameEngine/EntitySystem/Entity.h"
 #include "GameEngine/EntitySystem/Components/SpriteRenderComponent.h"
 #include "GameEngine/Util/CameraManager.h"
+#include "GameEngine/UI/text.h"
 
 #include <cassert>
 #include <cstdio>
@@ -71,8 +72,6 @@ void Map::loadMap(const std::string& path)
 	}
 }
 
-#include "GameEngine/UI/text.h"
-
 // Call this at the start of MainGame::Update().
 void Map::render()
 {
@@ -104,7 +103,7 @@ void Map::render()
 	cursorIndex.x /= allShared.m_width;
 	cursorIndex.y /= allShared.m_height;
 	cursorTile.setPosition(sf::Vector2f{ (float)(cursorIndex.x * allShared.m_width), (float)(cursorIndex.y * allShared.m_height) });
-	cursorTile.setFillColor(sf::Color(255, 255, 255, 100));
+	cursorTile.setFillColor(sf::Color(0, 0, 0, 100));
 	cursorTile.setOutlineColor(sf::Color::White);
 	cursorTile.setOutlineThickness(3.0);
 	target->draw(cursorTile);
@@ -118,6 +117,11 @@ float Map::getWidth() const
 float Map::getHeight() const
 {
 	return static_cast<float>(Tile::s_allShared.m_height * g_rows);
+}
+
+const TileResource& Map::getResourceAt(int tile_x, int tile_y) const
+{
+	return g_resources[tile_y][tile_x];
 }
 
 Map::Map()

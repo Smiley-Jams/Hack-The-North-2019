@@ -15,8 +15,6 @@ public:
 
 	void render(sf::RenderTarget * renderTarget);
 private:
-	sf::Sprite m_cursor;
-	sf::Sprite m_cursorClicked;
 
 	uint32_t m_wood;
 	uint32_t m_ore;
