@@ -42,15 +42,22 @@ private:
 
 };
 
+struct TileResource
+{
+	unsigned int m_wood;
+	unsigned int m_ore;
+	unsigned int m_wool;
+};
+
 class Map {
 public:
 	static Map& getInstance();
 
 	//The price we pay for optimal memory saving is having to make lookup functions rather than having public members.
 	eTileType getTileType(unsigned int x, unsigned int y);
-	// GameEngine::eTexture::type getTileTexture(unsigned int x, unsigned int y);
-	// sf::Color getTileColor(unsigned int x, unsigned int y);
 	sf::Vector2u getTilePosition(unsigned int x, unsigned int y);
+
+	void loadMap(const std::string& path = "Resources/maps/out.json");
 
 	void render();
 
