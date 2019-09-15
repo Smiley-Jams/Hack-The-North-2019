@@ -15,6 +15,10 @@ namespace GameEngine
 			PlayerLeft,
 			PlayerUp,
 			PlayerDown,
+			PlayerMoveRight,
+			PlayerMoveLeft,
+			PlayerMoveUp,
+			PlayerMoveDown,
 			None,
 		};
 	}
