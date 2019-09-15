@@ -10,6 +10,7 @@
 
 class UIView;
 class UIWindow;
+class ParticleManager;
 
 namespace GameEngine
 {
@@ -64,6 +65,7 @@ namespace GameEngine
 
 		UIView * m_view;
 		UIWindow * m_window;
+		ParticleManager * m_particleManager;
 
 		bool m_windowInitialised;
 

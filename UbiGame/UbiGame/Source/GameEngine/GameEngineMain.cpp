@@ -8,6 +8,7 @@
 #include "Util/TextureManager.h"
 #include "Util/AnimationManager.h"
 #include "Util/CameraManager.h"
+#include "Util/ParticleManager.h"
 #include "Game/Map.h"
 #include "UI/text.h"
 #include "UI/UIView.h"
@@ -62,6 +63,8 @@ void GameEngineMain::OnInitialised()
 	m_view->init();
 	m_window = new UIWindow();
 	m_window->init();
+	m_particleManager = new ParticleManager();
+	m_particleManager->init();
 
 	sCursor.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Cursor));
 	sCursorClicked.setTexture(*GameEngine::TextureManager::GetInstance()->GetTexture(GameEngine::eTexture::Cursor_clicked));
@@ -125,6 +128,8 @@ void GameEngineMain::Update()
 	// RENDER FUNCTIONS
 	// Map::getInstance().render();
 	RenderEntities();
+	m_particleManager->render();
+
 	if (m_view) m_view->render(m_renderTarget);
 	if (m_window) m_window->render(m_renderTarget);
 

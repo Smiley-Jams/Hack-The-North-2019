@@ -23,6 +23,9 @@ namespace GameEngine
 			UI_side_button,
 			UI_side_button_clicked,
 			UI_background,
+			Particle_cloud1,
+			Particle_cloud2,
+			Particle_cloud3,
 			Count
 		};
 	}	
@@ -43,6 +46,9 @@ namespace GameEngine
 		case eTexture::UI_side_button: return "icons/UI_sidebar.png";
 		case eTexture::UI_side_button_clicked: return "icons/UI_sidebar_press.png";
 		case eTexture::UI_background: return "icons/UI_background.png";
+		case eTexture::Particle_cloud1: return "particles/cloud1.png";
+		case eTexture::Particle_cloud2: return "particles/cloud2.png";
+		case eTexture::Particle_cloud3: return "particles/cloud3.png";
 		}
 
 		return "UnknownTexType";
