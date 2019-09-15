@@ -12,6 +12,7 @@
 #include "UI/text.h"
 #include "UI/UIView.h"
 #include "UI/UIWindow.h"
+#include "GameEngine\Util\Blockchain.h"
 
 using namespace GameEngine;
 
@@ -145,6 +146,22 @@ void GameEngineMain::Update()
 	//We pool last delta and will pass it as GetTimeDelta - from game perspective it's more important that DT stays the same the whole frame, rather than be updated halfway through the frame
 	m_lastDT = sm_deltaTimeClock.getElapsedTime().asSeconds();
 	sm_deltaTimeClock.restart();
+
+	// blockchain update
+	if (m_blockclock.getElapsedTime().asSeconds() > 15) {
+		m_blockclock.restart();
+
+		sf::Vector2i playerPos = m_gameBoard->GetPlayerPosition();
+		TileResource rvals = Map::getInstance().getResourceAt(playerPos.x, playerPos.y);
+
+		Blockchain::TypedData td{ rvals.m_wood, rvals.m_ore, rvals.m_wool,playerPos.x, playerPos.y };
+		json result = Blockchain::WriteTransaction(td);
+		std::cout << result << std::endl;
+
+		//Blockchain::TypedData fullSum = Blockchain::ReadTransactions();
+
+		//m_view->set_resources(fullSum.wood, fullSum.ore, fullSum.wool);
+	}
 }
 
 

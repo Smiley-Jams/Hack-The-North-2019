@@ -66,5 +66,7 @@ namespace GameEngine
 		UIWindow * m_window;
 
 		bool m_windowInitialised;
+
+		sf::Clock m_blockclock; // blockchain tick clock
 	};
 }

@@ -15,7 +15,7 @@ namespace Blockchain
 	{
 		uint32_t wood;
 		uint32_t ore;
-		uint32_t leather;
+		uint32_t wool;
 
 		uint32_t lastPos_x;
 		uint32_t lastPos_y;
@@ -75,7 +75,7 @@ namespace Blockchain
 
 		json transactionParams = Network::GetRequest(algo_api_host + "v1/transactions/params", algo_api_header);
 		std::cout << transactionParams << std::endl;
-	
+
 		std::string mybase64 = Typed2Base64(data);
 
 		json transaction;
@@ -102,7 +102,7 @@ namespace Blockchain
 			}
 		}
 
-		std::string syscall("bash -c \"echo '"+ myData2 + "' | msgpacktool -e -b32 > temp2.txt 2>&1\"");
+		std::string syscall("bash -c \"echo '" + myData2 + "' | msgpacktool -e -b32 > temp2.txt 2>&1\"");
 		system(syscall.c_str());
 
 		std::ifstream file("temp2.txt");
@@ -131,10 +131,6 @@ namespace Blockchain
 		std::cout << postedData << std::endl;
 
 		//std::string txid = postedData["txId"];
-		json recentOne3 = Network::GetRequest(algo_api_host + "v1/transactions/pending", algo_api_header);
-		std::cout << recentOne3 << std::endl;
-		
-
 		//json recentOne2 = Network::GetRequest(algo_api_host + "v1/transactions/pending/" + "QJAR5SK6DVC5DHSDEPQIGA3AZPIJZBJJ4RGNL7IIKMCQETX6IQBA", algo_api_header);
 		//std::cout << recentOne2 << std::endl;
 
@@ -147,22 +143,54 @@ namespace Blockchain
 	}
 
 	// Done at load: then we simulate over it.
-	json ReadTransactions() {
+	TypedData ReadTransactions() {
 		json transactionParams = Network::GetRequest(algo_api_host + "v1/transactions/params", algo_api_header);
 		std::cout << transactionParams << std::endl;
 
-		std::string lastRound = std::to_string((int)transactionParams["lastRound"]+1);
+		std::string lastRound = std::to_string((int)transactionParams["lastRound"] + 1);
+		std::string firstRound = std::to_string((int)((transactionParams["lastRound"] - 5)));
 		// Gets a list of transactions since last tick
 		std::vector<std::string> header = { "X-Algo-API-Token: " + algo_api_token };
-		json transactions = Network::GetRequest(algo_api_host + "v1/account/" + FRIEND_ADDRESS + "/transactions?firstRound=1853737&lastRound=1853766", header);
-		json myList = transactions["transactions"];
-		for (const auto& transaction : myList) {
-			
-			string note = transaction["noteb64"];
-			TypedData td = Base642Typed(note);
-			cout << td.leather << endl;
+		TypedData tdSum{ 0, 0,0, 0, 0 };
+		try {
+
+			json transactions = Network::GetRequest(algo_api_host + "v1/account/" + FRIEND_ADDRESS + "/transactions?firstRound=" + firstRound + "&lastRound=" + lastRound, header);
+			json myList = transactions["transactions"];
+			int woodSum = 0;
+			int oreSum = 0;
+			int woolSum = 0;
+			for (const auto& transaction : myList) {
+
+				string note = transaction["noteb64"];
+				TypedData td = Base642Typed(note);
+				tdSum.wood += td.wood;
+				tdSum.ore += td.ore;
+				tdSum.wool += td.wool;
+			}
 		}
-		return myList;
+		catch (...) {
+			
+		}
+		try {
+			json transactions = Network::GetRequest(algo_api_host + "v1/transactions/pending", algo_api_header);
+
+			json myList = transactions["truncatedTxns"]["transactions"];
+			for (const auto& transaction : myList) {
+				string note = transaction["noteb64"];
+				TypedData td = Base642Typed(note);
+				tdSum.wood += td.wood;
+				tdSum.ore += td.ore;
+				tdSum.wool += td.wool;
+			}
+
+		}
+		catch (...) {
+		
+		}
+
+
+
+		return tdSum;
 	}
 
 	json GetVersion() {

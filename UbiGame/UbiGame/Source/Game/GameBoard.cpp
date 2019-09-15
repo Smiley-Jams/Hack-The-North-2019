@@ -5,7 +5,6 @@
 #include "GameEngine\EntitySystem\Components\CollidableComponent.h"
 #include "GameEngine\EntitySystem\Components\CollidablePhysicsComponent.h"
 #include "GameEngine\EntitySystem\Components\SpriteRenderComponent.h"
-#include "GameEngine\Util\Blockchain.h"
 
 #include "Game\Components\PlayerMovementComponent.h"
 #include "Map.h"
@@ -18,18 +17,7 @@ GameBoard::GameBoard()
 {
 	CreatePlayer();
 
-	//string playerAddress = Blockchain::NewUserKey();
-
-	json result = Blockchain::GetVersion();
-	std::cout << result << std::endl;
-
-	Blockchain::TypedData td{ 1,1,1,0,0 };
-
-	result = Blockchain::WriteTransaction(td);
-	std::cout << result << std::endl;
-
-	Blockchain::ReadTransactions();
-	
+	//string playerAddress = Blockchain::NewUserKey();	
 
 	//std::string url = "https://postman-echo.com/post";
 	//std::vector<std::string> headers;

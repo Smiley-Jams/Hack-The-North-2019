@@ -1,6 +1,7 @@
 #pragma once
 #include "GameEngine\EntitySystem\Entity.h"
 #include <SFML/System/Vector2.hpp>
+
 #include <vector>
 
 namespace Game
@@ -17,6 +18,7 @@ namespace Game
 
 		void Update();		
 		bool IsGameOver() { return false; }
+		sf::Vector2i GetPlayerPosition() { return sf::Vector2i(static_cast<int>(m_player->GetPos().x), static_cast<int>(m_player->GetPos().y)); }
 
 	private:
 		void CreatePlayer();
