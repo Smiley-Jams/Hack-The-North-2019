@@ -5,7 +5,7 @@
 #include "GameEngine\EntitySystem\Components\CollidableComponent.h"
 #include "GameEngine\EntitySystem\Components\CollidablePhysicsComponent.h"
 #include "GameEngine\EntitySystem\Components\SpriteRenderComponent.h"
-#include "GameEngine\Util\Network.h"
+#include "GameEngine\Util\Blockchain.h"
 
 #include "Game\Components\PlayerMovementComponent.h"
 #include "Map.h"
@@ -18,26 +18,28 @@ GameBoard::GameBoard()
 {
 	CreatePlayer();
 
-	/*
-	std::string url = "https://testnet-algorand.api.purestake.io/ps1/v1/account/3ZVAYYEOZRPXD3XDNS3YRHP2CQ4RBPPUVL4HFIAOFVQXZ2TRKYBKLDMK6I";
-	std::vector<std::string> headers;
-	headers.emplace_back("Host: testnet-algorand.api.purestake.io");
-	headers.push_back("X-API-Key: B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab");
-	json result = Network::GetRequest(url, headers);
-	std::cout << result << std::endl;
-	*/
+	//string playerAddress = Blockchain::NewUserKey();
 
-	/*
-	std::string url = "https://postman-echo.com/post";
-	std::vector<std::string> headers;
-	headers.emplace_back("Host: testnet-algorand.api.purestake.io");
-	headers.push_back("X-API-Key: B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab");
-	json data;
-	data["test"] = 3;
-	data["test2"] = "stringggg";
-	json result = Network::PostRequest(url, headers, data);
+	json result = Blockchain::GetVersion();
 	std::cout << result << std::endl;
-	*/
+
+	Blockchain::TypedData td{ 1,1,1,0,0 };
+
+	result = Blockchain::WriteTransaction(td);
+	std::cout << result << std::endl;
+
+	Blockchain::ReadTransactions();
+	
+
+	//std::string url = "https://postman-echo.com/post";
+	//std::vector<std::string> headers;
+	//headers.emplace_back("Host: testnet-algorand.api.purestake.io");
+	//headers.push_back("X-API-Key: B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab");
+	//json data;
+	//data["test"] = 3;
+	//data["test2"] = "stringggg";
+	//json result = Network::PostRequest(url, headers, data);
+	//std::cout << result << std::endl;
 }
 
 
@@ -72,5 +74,5 @@ void GameBoard::CreatePlayer()
 
 void GameBoard::Update()
 {	
-	
+
 }
