@@ -39,7 +39,7 @@ void UIView::render(sf::RenderTarget * renderTarget)
 
 	// Render UI showing the player's resources
 	sf::RectangleShape bg(sf::Vector2f(400.f, 40.f));
-	bg.setPosition(static_cast<float>(scr.x * 2 - 400), 0.f);
+	bg.setPosition(sf::Vector2f(sf::Vector2i(scr.x * 2 - 400, 0) + cam - scr));
 	bg.setFillColor(sf::Color(0, 0, 0, 100));
 	bg.setOutlineColor(sf::Color::White);
 	bg.setOutlineThickness(3.0);
